@@ -11,14 +11,24 @@ Todos:
         
 '''
 from pyspark.sql import SparkSession
-
+from delta import *
 
 def build_spark(appName="HelloWorld"):
     '''
     Builds a spark instance configured to the S3 bucket set as the data lake.
     '''
-    return (SparkSession.builder 
-            .appName(appName) 
-            .enableHiveSupport()
-            .getOrCreate()
-        )
+    
+    spark =  configure_spark_with_delta_pip(
+                SparkSession.builder 
+                    .appName(appName) 
+                    # .enableHiveSupport()
+                    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+                    .config(
+                        "spark.sql.catalog.spark_catalog",
+                        "org.apache.spark.sql.delta.catalog.DeltaCatalog",
+                    )
+        ).getOrCreate()
+
+
+
+    return spark

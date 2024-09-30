@@ -1,0 +1,8 @@
+services:
+  jupyter:
+    build:
+      dockerfile: Dockerfile
+      args:
+        - JUPYTER_PASSW=$JUPYTER_PASSW
+
+# WIP
