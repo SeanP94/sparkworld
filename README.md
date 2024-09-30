@@ -38,7 +38,7 @@ docker run  -v /workdir:/usr/local/app -p 8888:8888 sparkworld
 #### Helpful links
 
 - Delta Lake S3\
-    https://induraj2020.medium.com/how-to-access-the-s3-bucket-using-python-ecdbe5ebc45f 
+    https://delta.io/blog/delta-lake-s3/
 
 - Docker Refresher\
     https://docs.docker.com/get-started/docker-concepts/building-images/writing-a-dockerfile/

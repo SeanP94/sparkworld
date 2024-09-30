@@ -1,3 +1,7 @@
 venv/
 .env
 workdir/.ipynb_checkpoints/
+workdir/spark-warehouse/
+__pycache__/
+*.log
+metastore_db/ 
