@@ -11,8 +11,7 @@ pip install -r requirements.txt
 #### Running in Docker 
 ```
 docker build -t sparkworld .
-docker run  -v /Users/kraytor/Projects/data_platform/workdir:/usr/local/app -p 8888:8888 sparkworld 
-OR 
+
 docker run  -v /workdir:/usr/local/app -p 8888:8888 sparkworld
 ```
 
