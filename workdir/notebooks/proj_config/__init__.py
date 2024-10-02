@@ -21,12 +21,11 @@ def build_spark(appName="HelloWorld"):
     spark =  configure_spark_with_delta_pip(
                 SparkSession.builder 
                     .appName(appName) 
-                    # .enableHiveSupport()
+                    .master("local[2]")
+                    .enableHiveSupport()
+                    .config("spark.jars.packages", "io.delta:delta-core_2.12:2.1.0.jar")
                     .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
-                    .config(
-                        "spark.sql.catalog.spark_catalog",
-                        "org.apache.spark.sql.delta.catalog.DeltaCatalog",
-                    )
+                    .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
         ).getOrCreate()
 
 
