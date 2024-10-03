@@ -23,12 +23,10 @@ def build_spark(appName="HelloWorld"):
                 SparkSession.builder 
                     .appName(appName) 
                     .master("spark://spark-master:7077") 
-                    .appName("Jupyter_PySpark_Connection") 
-                    .master("local[2]")
                     .enableHiveSupport()
-                    .config("spark.jars.packages", "io.delta:delta-core_2.12:2.1.0.jar")
-                    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
-                    .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
+                    # .config("spark.jars.packages", "io.delta:delta-core_2.12:2.1.0.jar")
+                    # .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+                    # .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
         ).getOrCreate()
 
     # spark = SparkSession.builder \
