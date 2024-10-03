@@ -15,8 +15,11 @@ services:
     # command: "start-notebook.sh --NotebookApp.token=''"
 
   spark-master:
-    image: bitnami/spark:3.4.1
+    # image: bitnami/spark:3.4.1
     container_name: spark-master
+    build:
+        context: .
+        dockerfile: Dockerfile.spark  # Custom Dockerfile
     environment:
       - SPARK_MODE=master
       - JAVA_HOME=/opt/bitnami/java  # Set JAVA_HOME
@@ -26,8 +29,11 @@ services:
       - "8080:8080"
 
   spark-worker:
-    image: bitnami/spark:3.4.1
+    # image: bitnami/spark:3.4.1
     container_name: spark-worker
+    build:
+        context: .
+        dockerfile: Dockerfile.spark  # Custom Dockerfile
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
@@ -37,6 +43,7 @@ services:
       - spark-master
     ports:
       - "8081:8081"
+
 
 volumes:
   jupyter_data:

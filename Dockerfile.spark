@@ -1,0 +1,21 @@
+# Dockerfile for Spark with Delta Lake
+FROM bitnami/spark:3.4.1
+
+# Install Java and necessary tools
+USER root
+
+
+# Install Java, wget, and other necessary packages
+RUN apt-get update && apt-get install -y  wget
+    #  && \
+    # apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set JAVA_HOME
+ENV JAVA_HOME=/opt/bitnami/java
+ENV PATH="$JAVA_HOME/bin:$PATH"
+
+# Add Delta Lake dependencies
+
+RUN wget -q https://repo1.maven.org/maven2/io/delta/delta-core_2.12/2.2.0/delta-core_2.12-2.2.0.jar -P /opt/bitnami/spark/jars \
+# RUN wget -q https://repo1.maven.org/maven2/io/delta/delta-core_2.12/2.3.0/delta-core_2.12-2.2.0.jar -P /opt/bitnami/spark/jars 
+# && wget -q https://repo1.maven.org/maven2/org/apache/spark/spark-sql_2.12/3.3.2/spark-sql_2.12-3.3.2.jar -P /opt/bitnami/spark/jars
