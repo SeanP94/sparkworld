@@ -8,8 +8,35 @@ services:
     volumes:
       - jupyter_data:/home/jovyan/work
       - /Users/kraytor/Projects/sparkworld/workdir/notebooks:/usr/local/app
-      # - /workdir:/usr/local/app
-    # command: "start-notebook.sh --NotebookApp.token=''" # Starts Jupyter without password token
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+    depends_on:
+      - spark-master
+    # command: "start-notebook.sh --NotebookApp.token=''"
+
+  spark-master:
+    image: bitnami/spark:3.4.1
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+      - JAVA_HOME=/opt/bitnami/java  # Set JAVA_HOME
+      - SPARK_JARS_PACKAGES=io.delta:delta-core_2.12:2.2.0
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+
+  spark-worker:
+    image: bitnami/spark:3.4.1
+    container_name: spark-worker
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - JAVA_HOME=/opt/bitnami/java  # Set JAVA_HOME
+      - SPARK_JARS_PACKAGES=io.delta:delta-core_2.12:2.2.0
+    depends_on:
+      - spark-master
+    ports:
+      - "8081:8081"
 
 volumes:
   jupyter_data:

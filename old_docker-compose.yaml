@@ -1,0 +1,16 @@
+version: '3'
+services:
+  jupyter:
+    build: .
+    container_name: jupyter_container
+    ports:
+      - "8889:8888"
+    volumes:
+      - jupyter_data:/home/jovyan/work
+      - /Users/kraytor/Projects/sparkworld/workdir/notebooks:/usr/local/app
+      # - /workdir:/usr/local/app
+    # command: "start-notebook.sh --NotebookApp.token=''" # Starts Jupyter without password token
+
+volumes:
+  jupyter_data:
+    driver: local
